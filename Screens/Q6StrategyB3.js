@@ -170,6 +170,24 @@ const Q6StrategyB3 = (props) => {
       }
 
 
+      // 학생이 문제의 답을 제출한 적이 있는지 확인하는 함수
+      const answercheckDB = async ()=>{
+        try{
+            const data = await getDocs(collection(db, "student" ))
+            setStudents(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+            {students?.map((row) => {
+                // 현재 로그인한 학생의 답안이 제출되어있는지 체크
+                if(stuid == row.addName && row["6-2-3"] != null){
+                    // 제출한 답변이 있다면 다음 화면으로 넘어가게 됨
+                    props.navigation.navigate("Q6StrategyB4")
+                }
+            })}
+        }catch(error){
+            console.log(error.message)
+        }
+    }
+
+
     return (
         <View style ={styles.mainView}>
 
@@ -203,9 +221,7 @@ const Q6StrategyB3 = (props) => {
             style = {styles.CheckButton}
             title = "Next"
             color= '#191970'
-            onPress={()=>
-            props.navigation.navigate("Q6StrategyB4")
-            }
+            onPress={answercheckDB}
             >
             </Button>
         </View>

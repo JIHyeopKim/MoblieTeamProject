@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
     Text, 
     View, 
@@ -6,6 +6,17 @@ import {
     StyleSheet,
     TouchableOpacity
 } from "react-native";
+import { MyStore } from "../App"
+import  {db}  from '../firebaseConfig';
+import { 
+  addDoc, 
+  collection, 
+  getDocs,
+  doc,
+  updateDoc,
+  deleteDoc,  
+  where,
+  query } from "firebase/firestore";
 
 const styles = StyleSheet.create({
 
@@ -82,6 +93,30 @@ const Select7 = (props) => {
     const SelectStrategy = useState("Which strategy do you want to try?\n")
     const nextButton = useState("Next");
 
+
+    // 학생이 로그인할 때 입력한 이름을 저장하기 위한 변수 선언
+    const { stuid, changeID } = useContext(MyStore)
+    const [students, setStudents] = useState();
+
+    // 학생이 문제의 답을 제출한 적이 있는지 확인하는 함수
+    const answercheckDB = async ()=>{
+        try{
+            const data = await getDocs(collection(db, "student" ))
+            setStudents(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+            {students?.map((row) => {
+                // 현재 로그인한 학생의 답안이 제출되어있는지 체크
+                if(stuid == row.addName && row["7-1-1"] != null && row["7-1-2"] != null && row["7-1-3"] != null
+                && row["7-2-1"] != null && row["7-2-2"] != null 
+                && row["7-2-3"] != null && row["7-3-1"] != null && row["7-3-2"] != null ){
+                    // 제출한 답변이 있다면 다음 화면으로 넘어가게 됨
+                    props.navigation.navigate("Question8")
+                }
+            })}
+        }catch(error){
+            console.log(error.message)
+        }
+    }
+
     return (
         <View style ={styles.mainView}>
                 {/* Q7번 */}
@@ -137,9 +172,7 @@ const Select7 = (props) => {
                 <Button style = {styles.AnswerText}
                         title = "Next"
                         color= '#191970'
-                        onPress = { () => {
-                        props.navigation.navigate("Question8") //클릭시 다음 문제 페이지로 이동
-                    }}
+                        onPress = {answercheckDB}
                 >
                 </Button>
             </View>{/* 버튼 뷰 */}
