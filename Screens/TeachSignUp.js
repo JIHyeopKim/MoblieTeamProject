@@ -4,7 +4,8 @@ import {
     View, 
     Button,
     StyleSheet,
-    TextInput
+    TextInput,
+    ScrollView
 } from "react-native";
 
 const styles = StyleSheet.create({
@@ -73,7 +74,7 @@ const TeachSignUp = (props) => {
     return (
         // 배경 화면 뷰
         <View style = {styles.mainView}>
-
+            <ScrollView style = {{width : '100%'}}>
             {/* 타이틀 텍스트 useState */}
             <Text style = {styles.titleText}>
 
@@ -147,6 +148,7 @@ const TeachSignUp = (props) => {
             ></Button>
             </View>
         </View> 
+        </ScrollView>
     </View>
     );
 }

@@ -4,7 +4,8 @@ import {
     View, 
     Button,
     StyleSheet,
-    TextInput
+    TextInput,
+    ScrollView
 } from "react-native";
 import {db} from '../firebaseConfig';
 import {
@@ -102,7 +103,7 @@ const SignUp = (props) => {
     return (
         // 배경 화면 뷰
         <View style = {styles.mainView}>
-
+            <ScrollView style = {{width : '100%'}}>
             {/* 타이틀 텍스트 useState */}
             <Text style = {styles.titleText}>
 
@@ -172,6 +173,7 @@ const SignUp = (props) => {
             ></Button>
             </View>
         </View> 
+        </ScrollView>
     </View>
     );
 }

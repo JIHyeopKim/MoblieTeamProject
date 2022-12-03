@@ -4,7 +4,8 @@ import {
     View, 
     Button,
     StyleSheet,
-    TouchableOpacity
+    TouchableOpacity,
+    ScrollView
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { MyStore } from "../App"
@@ -175,7 +176,7 @@ const Q4StrategyB = (props) => {
 
     return (
         <View style ={styles.mainView}>
-
+            <ScrollView style = {{width : '100%'}}>
             {/* Q4 S-B번 문제 라벨 */}
             <Text style = {styles.labelTitle}>
             {B1}
@@ -210,6 +211,7 @@ const Q4StrategyB = (props) => {
             onPress={answercheckDB}
             >
             </Button>
+            </ScrollView>
         </View>
         );
 }
