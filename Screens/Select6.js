@@ -104,7 +104,7 @@ const Select6 = (props) => {
             setStudents(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
             {students?.map((row) => {
                 // 현재 로그인한 학생의 답안이 제출되어있는지 체크
-                if(stuid == row.addName && row["6-1-1"] != null && row["6-1-2"] != null && row["6-2-1"] != null
+                if(stuid == row.addName && row["6-1-2"] != null && row["6-2-1"] != null
                 && row["6-2-2"] != null && row["6-2-3"] != null 
                 && row["6-2-4"] != null && row["6-3-1"] != null && row["6-3-2"] != null ){
                     // 제출한 답변이 있다면 다음 화면으로 넘어가게 됨

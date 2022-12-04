@@ -93,6 +93,7 @@ const Q4StrategyC = (props) => {
     const { stuid, changeID } = useContext(MyStore)
     // 학생이 입력한 답변을 저장하는 useState
     const [Answer, setAnswer] = useState('');
+    const [students, setStudents] = useState();
 
     // 학생이 제출한 답변이 정답인지 판별하는 함수
     const submitBtn = () => {
@@ -116,6 +117,7 @@ const Q4StrategyC = (props) => {
         // 일치하지않을 시에는 정답률과 몇%가 일치한 답변이었는지 힌트를 줌
         }else{
             updateDB()
+            props.navigation.navigate("Q4StrategyC2")
             alert(a)
           a = 0;
         }

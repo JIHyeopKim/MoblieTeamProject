@@ -129,6 +129,7 @@ const Q1StrategyA = (props) => {
         // 일치하지않을 시에는 정답률과 몇%가 일치한 답변이었는지 힌트를 줌
         }else{
             updateDB()
+            props.navigation.navigate("Q1StrategyA2")
             alert(a)
           a = 0;
         }
