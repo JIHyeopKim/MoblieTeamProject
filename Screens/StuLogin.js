@@ -133,6 +133,7 @@ const StuLogin = (props) => {
                 style = {styles.textInput}
                 value = {addName}
                 onChangeText={setAddName}
+                placeholderTextColor={'#999'}
                 placeholder="Your name">
             </TextInput>
 
@@ -145,6 +146,7 @@ const StuLogin = (props) => {
             <TextInput
                 style = {styles.textInput}
                 value = {addstuNum}
+                placeholderTextColor={'#999'}
                 onChangeText={setAddStuNum}
                 placeholder="Your Student Number"></TextInput>
 
@@ -158,6 +160,7 @@ const StuLogin = (props) => {
                 style = {styles.textInput}
                 value = {addclsNum}
                 onChangeText={setAddClsNum}
+                placeholderTextColor={'#999'}
                 placeholder="Your Class Number"></TextInput>
             
             <View style = {styles.ButtonView}>

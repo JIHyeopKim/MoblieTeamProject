@@ -122,6 +122,7 @@ const SignUp = (props) => {
                 style = {styles.textInput}
                 value = {addName}
                 onChangeText={setAddName}
+                placeholderTextColor={'#999'}
                 placeholder="Your name">
             </TextInput>
 
@@ -135,6 +136,7 @@ const SignUp = (props) => {
                 style = {styles.textInput}
                 value = {addstuNum}
                 onChangeText={setAddStuNum}
+                placeholderTextColor={'#999'}
                 placeholder="Your Student Number"></TextInput>
                 <Text style = {styles.mainText}></Text>
 
@@ -148,6 +150,7 @@ const SignUp = (props) => {
                 style = {styles.textInput}
                 value = {addclsNum}
                 onChangeText={setAddClsNum}
+                placeholderTextColor={'#999'}
                 placeholder="Your Class Number"></TextInput>
                 <Text style = {styles.mainText}></Text>
             

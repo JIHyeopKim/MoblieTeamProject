@@ -4,7 +4,7 @@ import {
 } from 'react-native'; 
 import { createContext, useState } from 'react';
 import React from 'react';
-
+const MyContext = createContext();
 //스크린 폴더
 import Start from './Screens/Start'//시작화면
 import Select from './Screens/Select' //선택화면
@@ -13,6 +13,7 @@ import TeachLogin from './Screens/TeachLogin' //선생님 페이지
 import TeachSignUp from './Screens/TeachSignUp'
 import StuLogin from './Screens/StuLogin'; //학생 로그인 페이지
 import SignUp from './Screens/SignUp';
+import ScoreCheck from './Screens/ScoreCheck';
 
 import Question1 from './Screens/Question1';//질문 1
 import Select1 from './Screens/Select1' //질문1 선택창
@@ -110,24 +111,23 @@ import Q8StrategyC3 from './Screens/Q8StrategyC3' //답변C 창3
 import Q8StrategyAConfirmation from './Screens/Q8StrategyAConfirmation' //문제 1끝
 import Q8StrategyBCConfirmation from './Screens/Q8StrategyBCConfirmation' //문제 23끝
 
-import Finish from './Screens/Finish' // 문제 끝
-
 //컴포넌트 폴더
 import { NavigationContainer } from '@react-navigation/native'; //네비게이터 이미지 전환
 import { createStackNavigator } from '@react-navigation/stack'; //네비게이터 생성
 
 // contextAPI 사용 위해 선언
 export const MyStore = React.createContext('');
-
+export const NumberContext = createContext(null);
 const Stack = createStackNavigator();//네비게이터 스택 생성
 export default function App() {
   // 다른 스크린에서 사용할 수 있는 변수 전송을 위한 전역변수 선언(useState)
   const [stuid, setStuid] = useState("id");
+
   // 로그인 화면에서 학생이 입력한 학생 이름이 들어오면 그 이름을 전역변수 값에 적용하는 함수
   const changeID = (id)=> {
     setStuid(id)
   };
-
+ 
   return (
     // App.js 전체를 감싸 내부의 스크린들이 모두 사용할 수 있는 전역변수 값 전송
     <MyStore.Provider value={{stuid,changeID}}>
@@ -154,6 +154,9 @@ export default function App() {
         />
         <Stack.Screen
           name = "SignUp" component = {SignUp} //회원가입
+        />
+        <Stack.Screen
+          name = "ScoreCheck" component = {ScoreCheck} //회원가입
         />
       {/* --------------------------------------------------------------------------------------------- */}
         <Stack.Screen
@@ -425,9 +428,6 @@ export default function App() {
          name = "Q8StrategyBCConfirmation" component={Q8StrategyBCConfirmation} //문제23 클리어
         />
       {/* --------------------------------------------------------------------------------------------- */}
-      <Stack.Screen
-         name = "Finish" component={Finish} //문제 완전 완료
-        />
       </Stack.Navigator>
     </NavigationContainer>
     </MyStore.Provider>

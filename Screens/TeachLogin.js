@@ -1,13 +1,151 @@
+import { createContext, useContext } from 'react';
 import { useState } from "react";
-import {
-    Text, 
-    View, 
-    Button,
-    StyleSheet,
-    TextInput,
-    TouchableOpacity,
-    ScrollView
-} from "react-native";
+import { View, TextInput, Button,StyleSheet,Text,TouchableOpacity, Alert,ScrollView } from 'react-native';
+import  {db}  from '../firebaseConfig';
+import { 
+  addDoc, 
+  collection, 
+  getDocs,
+  doc,
+  updateDoc,
+  deleteDoc,  
+  where,
+  query } from "firebase/firestore"; 
+
+import { async } from "@firebase/util";
+import { MyStore } from "../App"
+import { NumberContext } from '../App';
+const TeachLogin = (props) => {
+
+    const titleText = useState("Teacher Login");//타이틀 텍스트
+    
+    //라벨텍스트
+    const classNumberLabel = useState("Input Your ClassNumber:");
+    const classpassLabel = useState("Input Your Class Pass:");
+    const nameLabel = useState("Input Your Name:");
+    const TeachNumberLabel = useState("Input Your TeachNumber:");
+    
+    //입력된 교사 정보가 들어갈 useState
+    const [Teacher, setTeacher] = useState();
+    const [addName, setName] = useState('');
+    const [addNumber, setNumber] = useState('');
+    const [addClassNumber, setClassNumber] = useState('');
+    const [addClassPassword, setClassPassword] = useState('');
+    
+    //readformDB를 통해 로그인
+    const readfromDB = async ()=>{
+        try{
+          const data = await getDocs(collection(db, "Teacher" ))//DB의 Teacher collection으로 접근
+
+          setTeacher(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+     
+            
+            {Teacher?.map((row, idx) => {
+              
+              if(addName==row.addName && addNumber==row.addNumber //입력된 값이 DB에 저장된 데이터 값과 일치하는지 확인하기
+                && addClassNumber==row.addClassNumber && addClassPassword==row.addClassPassword){
+                   
+                    props.navigation.navigate("ScoreCheck")//값이 일치할시 학생들의 문제풀이 확인 페이지로 넘어감
+                }
+            
+            })}
+          
+        }catch(error){
+          console.log(error.message)
+        }
+  
+      }
+  
+  
+    return (
+        
+        <View style = {styles.mainView}>
+            <ScrollView>
+            {/* 타이틀 텍스트  */}
+            <Text style = {styles.titleText}>
+            {titleText}
+            </Text>     
+
+            {/* UI가 들어갈 뷰 */}
+        <View style = {styles.SubView}>
+
+            {/* 이름라벨 */}
+            <Text style = {styles.Text}>
+                {nameLabel}
+            </Text>
+
+            {/* 이름 input창 */}
+            <TextInput
+                style = {styles.textInput}
+               
+                value={addName}
+                onChangeText={setName}>
+            </TextInput>
+
+            {/* 사번라벨 */}
+            <Text style = {styles.Text}>
+                {TeachNumberLabel}
+            </Text>
+
+            {/* 사번 input 창 */}
+            <TextInput
+                style = {styles.textInput}
+                placeholderTextColor={'#999'}
+                value={addNumber}
+                onChangeText={setNumber}></TextInput>
+
+            {/* 반라벨*/}
+            <Text style = {styles.Text}>
+                {classNumberLabel}
+            </Text>
+
+             {/* 반 input 창 */}
+            <TextInput
+                style = {styles.textInput}
+                placeholderTextColor={'#999'}
+                value={addClassNumber}
+                onChangeText={setClassNumber}></TextInput>
+            
+            {/* 반 비밀번호 라벨*/}
+            <Text style = {styles.Text}>
+                {classpassLabel}
+            </Text>
+
+             {/* 반 비밀번호 input */}
+            <TextInput
+                style = {styles.textInput}
+                placeholderTextColor={'#999'}
+                value={addClassPassword}
+                onChangeText={setClassPassword}></TextInput>
+
+            <View style = {styles.ButtonView}>
+             {/* 로그인버튼 */}
+             <Button 
+            style = {styles.SignButton}
+        
+                title = "Login"
+                color = '#191970'
+                onPress={readfromDB} //입력된 값을 useState를 통해 저장후 readfromDB실행
+            >
+            </Button>
+
+            {/* 회원가입버튼*/}
+            <Button
+            style = {styles.SignButton}
+            title = "SignUp" //버튼 이름 설정
+            color = '#191970'
+            //버튼 클릭시 회원가입창 이동
+            onPress={() => {
+                props.navigation.navigate("TeachSignUp")
+            }}
+            >
+            </Button>
+            </View>
+        </View> 
+        </ScrollView>
+    </View>
+    );
+}
 
 const styles = StyleSheet.create({
     //전체 배경 화면
@@ -60,100 +198,5 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
 });
-
-const TeachLogin = (props) => {
-    
-    const titleText = useState("LoginPage");
-
-    const classNumberLabel = useState("Input Your ClassNumber:");
-    const classpass = useState("Input Your Class Pass:");
-    const nameLabel = useState("Input Your Name:");
-    const TeachNumber = useState("Input Your TeachNumber:");
-    
-    
-    
-  
-    return (
-        // 배경 화면 뷰
-        <View style = {styles.mainView}>
-            <ScrollView style = {{width : '100%'}}>
-            {/* 타이틀 텍스트 useState */}
-            <Text style = {styles.titleText}>
-
-            {/* 로그인 메인화면 글 */}
-            {titleText}
-            </Text>     
-
-            {/* UI가 들어갈 뷰 */}
-        <View style = {styles.SubView}>
-
-            {/* 반 번호 */}
-            <Text style = {styles.Text}>
-                {classNumberLabel}
-            </Text>
-
-            {/* 이름 텍스트 input창 */}
-            <TextInput
-                style = {styles.textInput}
-                placeholder="Input Your name">
-            </TextInput>
-
-            {/* classPass */}
-            <Text style = {styles.Text}>
-                {classpass}
-            </Text>
-
-            {/* 학번 텍스트 input 창 */}
-            <TextInput
-                style = {styles.textInput}
-                placeholder="Your Student Number"></TextInput>
-
-            {/* 이름 라벨 창 */}
-            <Text style = {styles.Text}>
-                {nameLabel}
-            </Text>
-
-             {/* 반 텍스트 input 창 */}
-            <TextInput
-                style = {styles.textInput}
-                placeholder="Your Name"></TextInput>
-            
-            {/* 선생님 번호 라벨 창 */}
-            <Text style = {styles.Text}>
-                {TeachNumber}
-            </Text>
-
-             {/* 반 텍스트 input 창 */}
-            <TextInput
-                style = {styles.textInput}
-                placeholder="Your Name"></TextInput>
-
-            <View style = {styles.ButtonView}>
-             {/*버튼 설정*/}
-             <Button 
-            style = {styles.SignButton}
-            //로그인 성공시 질문1 스크린으로 이동
-                title = "Login" //버튼 이름 설정
-                color = '#191970'
-            >
-            </Button>
-
-            {/* 버튼 설정 */}
-            <Button
-            style = {styles.SignButton}
-            title = "SignUp" //버튼 이름 설정
-            color = '#191970'
-            //버튼 클릭시 회원가입창 이동
-            onPress={() => {
-                props.navigation.navigate("TeachSignUp")
-            }}
-            >
-            </Button>
-            </View>
-        </View> 
-        </ScrollView>
-    </View>
-    );
-}
 
 export default TeachLogin;
