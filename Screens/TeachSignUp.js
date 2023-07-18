@@ -72,6 +72,7 @@ const TeachSignUp = (props) => {
             <TextInput
                 style = {styles.textInput}
                 placeholderTextColor={'#999'}
+                placeholder="Teacher's name"
                 value={addName}
                 onChangeText={setName}>
             </TextInput>
@@ -85,6 +86,7 @@ const TeachSignUp = (props) => {
             <TextInput
                 style = {styles.textInput}
                 placeholderTextColor={'#999'}
+                placeholder="Teacher's Number"
                 value={addNumber}
                 onChangeText={setNumber}></TextInput>
 
@@ -97,6 +99,7 @@ const TeachSignUp = (props) => {
             <TextInput
                 style = {styles.textInput}
                 placeholderTextColor={'#999'}
+                placeholder="Teacher's Class Number"
                 value={addClassNumber}
                 onChangeText={setClassNumber}></TextInput>
             
@@ -109,6 +112,7 @@ const TeachSignUp = (props) => {
             <TextInput
                 style = {styles.textInput}
                 placeholderTextColor={'#999'}
+                placeholder="Teacher's Class PassWord"
                 value={addClassPassword}
                 onChangeText={setClassPassword}></TextInput>
 

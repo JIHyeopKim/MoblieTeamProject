@@ -77,7 +77,7 @@ const TeachLogin = (props) => {
             {/* 이름 input창 */}
             <TextInput
                 style = {styles.textInput}
-               
+                placeholder="Teacher's name"
                 value={addName}
                 onChangeText={setName}>
             </TextInput>
@@ -91,6 +91,7 @@ const TeachLogin = (props) => {
             <TextInput
                 style = {styles.textInput}
                 placeholderTextColor={'#999'}
+                placeholder="Teacher's Number"
                 value={addNumber}
                 onChangeText={setNumber}></TextInput>
 
@@ -103,6 +104,7 @@ const TeachLogin = (props) => {
             <TextInput
                 style = {styles.textInput}
                 placeholderTextColor={'#999'}
+                placeholder="Teacher's Class Number"
                 value={addClassNumber}
                 onChangeText={setClassNumber}></TextInput>
             
@@ -112,9 +114,11 @@ const TeachLogin = (props) => {
             </Text>
 
              {/* 반 비밀번호 input */}
-            <TextInput
+            <TextInput 
                 style = {styles.textInput}
                 placeholderTextColor={'#999'}
+                secureTextEntry={true}
+                placeholder="Teacher's Class PassWord"
                 value={addClassPassword}
                 onChangeText={setClassPassword}></TextInput>
 

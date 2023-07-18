@@ -73,7 +73,7 @@ const Question1 = (props) => {
             title = "What do you think the problem is asking you to do?"
             color= '#191970'
                 onPress = { () => {
-                    props.navigation.navigate("Select1") //클릭시 답변 페이지로 이동
+                    props.navigation.navigate("Select1") //클릭시 선택 페이지로 이동
              }}
             >
             </Button>
